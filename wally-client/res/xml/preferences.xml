@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/pref_title">
+ 		<EditTextPreference
+                android:key="@string/pref_server_key"
+                android:title="@string/pref_server_title"
+                android:summary="@string/pref_server_summary"
+                android:dialogTitle="@string/pref_server_dialogtitle" />
+            
+        <CheckBoxPreference
+                android:key="checkbox_preference"
+                android:title="Checkbox"
+                android:summary="Klicka här" />
+    </PreferenceCategory>
+</PreferenceScreen>

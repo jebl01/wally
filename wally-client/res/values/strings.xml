@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">JeppeTest</string>
+    <string name="action_settings">Settings</string>
+    
+    <string name="pref_title">Graphwall settings</string>
+    <string name="pref_server_key">pref_server</string>
+    <string name="pref_server_title">Server</string>
+    <string name="pref_server_summary">Remote graphwall server</string>
+    <string name="pref_server_dialogtitle">Enter server name</string>
+
+</resources>
