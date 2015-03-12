@@ -23,7 +23,6 @@ public class DashboardService {
   }
 
   @GET
-  @Path("/")
   public Collection<String> getDashboards() {
     return configuration.getDashboards().stream().map(DashboardConfig::getName).collect(Collectors.toList());
   }

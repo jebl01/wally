@@ -30,7 +30,6 @@ public class MetricsService {
   }
   
   @POST
-  @Path("/")
   @Consumes("application/json")
   public Stream<Data> getMetrics(Collection<String> metrics) {
     return dataRepository.get(metrics);

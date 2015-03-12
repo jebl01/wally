@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import se.jebl01.wally.collectors.Collector;
 import se.jebl01.wally.collectors.CollectorsBuilder;
 import se.jebl01.wally.collectors.DataRepository;
@@ -29,6 +32,8 @@ import com.yammer.dropwizard.config.Environment;
 
 @SuppressWarnings("rawtypes")
 public class WallyService extends Service<WallyConfiguration>{
+  private static final Logger LOG = LoggerFactory.getLogger(WallyService.class);
+  
   private static final Splitter SPLITTER = Splitter.on(".").omitEmptyStrings().trimResults().limit(2);
   
   public static void main(String[] args) throws Exception {
@@ -88,6 +93,8 @@ public class WallyService extends Service<WallyConfiguration>{
     final Map<String, Collector> collectors = new HashMap<>();
     
     CollectorsBuilder.build(configuration.getCollectors()).forEach(collector -> {
+      LOG.info("created collector: " + collector.getName());
+      
       collectors.put(collector.getName(), collector);
       executor.scheduleAtFixedRate(collector, 0, collector.getFrequency().interval, collector.getFrequency().timeUnit);
     });
