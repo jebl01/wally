@@ -1,6 +1,6 @@
 collectors:
   - name: dogfight1; dogfight2
-    frequence: SECOND
+    frequency: SECOND
     type: http/json
     path: http://dogfight-ix01.se-ix.delta.prod:1942/@metrics/metrics; http://dogfight-ix02.se-ix.delta.prod:1942/@metrics/metrics
     selectors:
@@ -14,7 +14,7 @@ collectors:
         path: counters.['dogfight.global.victories.count'].count
         calculation: DIFF
   - name: dogfight3
-    frequence: SECOND
+    frequency: SECOND
     type: http/json
     path: http://dogfight-ix03.se-ix.delta.prod:1942/@metrics/metrics
     selectors:
@@ -28,7 +28,7 @@ collectors:
         path: counters.['dogfight.global.victories.count'].count
         calculation: DIFF
   - name: dogfight
-    frequence: SECOND
+    frequency: SECOND
     type: aggregate
     path: empty
     selectors:
@@ -42,7 +42,7 @@ collectors:
         path: SUM/HEAD(dogfight1.wins, dogfight2.wins, dogfight3.wins)
         calculation: VALUE
   - name: dogfight1-min; dogfight2-min; dogfight3-min
-    frequence: MINUTE
+    frequency: MINUTE
     type: aggregate
     path: dogfight1; dogfight2; dogfight3
     selectors:

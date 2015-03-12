@@ -2,7 +2,7 @@ package se.jebl01.wally.configuration;
 
 import java.util.Collection;
 
-import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCE;
+import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCY;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,7 +10,7 @@ public class CollectorConfiguration {
   @JsonProperty
   private String name;
   @JsonProperty
-  private FREQUENCE frequence;
+  private FREQUENCY frequency;
   @JsonProperty
   private String type;
   @JsonProperty
@@ -22,8 +22,8 @@ public class CollectorConfiguration {
   public String getName() {
     return name;
   }
-  public FREQUENCE getFrequence() {
-    return frequence;
+  public FREQUENCY getFrequency() {
+    return frequency;
   }
   public String getType() {
     return type;

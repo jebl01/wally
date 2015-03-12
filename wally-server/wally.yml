@@ -1,22 +1,8 @@
 collectors:
-  - name: dogfight1; dogfight2
-    frequence: SECOND
+  - name: dogfight1; dogfight2; dogfight3
+    frequency: SECOND
     type: http/json
-    path: http://dogfight-ix01.se-ix.delta.prod:1942/@metrics/metrics; http://dogfight-ix02.se-ix.delta.prod:1942/@metrics/metrics
-    selectors:
-      - name: bids
-        path: counters.['dogfight.global.bids.count'].count
-        calculation: DIFF #DIFF|value|inc
-      - name: passes
-        path: counters.['dogfight.global.passes.count'].count
-        calculation: DIFF
-      - name: wins
-        path: counters.['dogfight.global.victories.count'].count
-        calculation: DIFF
-  - name: dogfight3
-    frequence: SECOND
-    type: http/json
-    path: http://dogfight-ix03.se-ix.delta.prod:1942/@metrics/metrics
+    path: http://dogfight-ix01.se-ix.delta.prod:1942/@metrics/metrics; http://dogfight-ix02.se-ix.delta.prod:1942/@metrics/metrics; http://dogfight-ix02.se-ix.delta.prod:1942/@metrics/metrics
     selectors:
       - name: bids
         path: counters.['dogfight.global.bids.count'].count
@@ -28,9 +14,9 @@ collectors:
         path: counters.['dogfight.global.victories.count'].count
         calculation: DIFF
   - name: dogfight
-    frequence: SECOND
+    frequency: SECOND
     type: aggregate
-    path: empty
+    path:
     selectors:
       - name: bids
         path: SUM/HEAD(dogfight1.bids, dogfight2.bids, dogfight3.bids)
@@ -42,7 +28,7 @@ collectors:
         path: SUM/HEAD(dogfight1.wins, dogfight2.wins, dogfight3.wins)
         calculation: VALUE
   - name: dogfight1-min; dogfight2-min; dogfight3-min
-    frequence: MINUTE
+    frequency: MINUTE
     type: aggregate
     path: dogfight1; dogfight2; dogfight3
     selectors:
@@ -60,10 +46,10 @@ collectors:
 # selector calculations = DIFF | VALUE
 # path = <path> | SUM|AVG/HEAD|ALL(<path>...)
 signals:
-  - name: dogfight.critical
+  - name: dogfight.bids.critical
     value: HT(1000)
     level: CRITICAL
-  - name: dogfight.warning
+  - name: dogfight.bids.warning
     value: LT(80)
     level: WARNING
 
@@ -73,36 +59,53 @@ dashboards:
       label: Dogfight
       type: column
       panels:
-        - label: Dogfight 4
+        - label: Dogfight 1
           type: row
           panels:
-            - label: Bids / s
+            - label: Bids/s
               type: graph
               data: dogfight1-min.bids; dogfight1.bids
               yscale: 1000
-              signals: [dogfight.critical, dogfight.warning]
-            - label: 4 Passes / s
+              signals: [dogfight.bids.critical, dogfight.bids.warning]
+            - label: Passes/s
               type: graph
               data: dogfight1.passes
               yscale: 10000
-            - label: 4 Wins / s
+            - label: Wins/s
               type: graph
               data: dogfight1.wins
               yscale: 100
         - label: Dogfight 2
           type: row
           panels:
-            - label: 2 Bids / s
+            - label: Bids/s
               type: graph
-              data: dogfight2.bids
+              data: dogfight2-min.bids; dogfight2.bids
               yscale: 1000
-            - label: 2 Passes / s
+              signals: [dogfight.bids.critical, dogfight.bids.warning]
+            - label: Passes/s
               type: graph
               data: dogfight2.passes
               yscale: 10000
-            - label: 2 Wins / s
+            - label: Wins/s
               type: graph
               data: dogfight2.wins
+              yscale: 100
+        - label: Dogfight 3
+          type: row
+          panels:
+            - label: Bids/s
+              type: graph
+              data: dogfight3-min.bids; dogfight3.bids
+              yscale: 1000
+              signals: [dogfight.bids.critical, dogfight.bids.warning]
+            - label: Passes/s
+              type: graph
+              data: dogfight3.passes
+              yscale: 10000
+            - label: Wins/s
+              type: graph
+              data: dogfight3.wins
               yscale: 100
 
 # HTTP-specific options.

@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 
 import se.jebl01.wally.collectors.selectors.JsonSelector;
-import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCE;
+import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCY;
 import se.jebl01.wally.net.WallyHttpClient;
 
 import com.atlassian.fugue.Option;
@@ -28,7 +28,7 @@ public class JsonCollectorTest {
 
     when(client.get(url)).thenReturn(Option.some(testData));
     
-    JsonNetworkCollector collector = new JsonNetworkCollector(collectorName, repository, FREQUENCE.SECOND, url, client);
+    JsonNetworkCollector collector = new JsonNetworkCollector(collectorName, repository, FREQUENCY.SECOND, url, client);
     JsonSelector selector = new JsonSelector(selectorName, path, calculation);
     collector.addSelector(selector);
     

@@ -3,6 +3,8 @@ package se.jebl01.wally.collectors.factories;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import org.parboiled.common.StringUtils;
+
 import se.jebl01.wally.collectors.AggregatorCollector;
 import se.jebl01.wally.collectors.Collector;
 import se.jebl01.wally.collectors.DataRepository;
@@ -12,6 +14,7 @@ import se.jebl01.wally.net.WallyHttpClient;
 
 import com.atlassian.fugue.Iterables;
 import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
 
 @SuppressWarnings("rawtypes")
 public abstract class CollectorFactory {
@@ -46,7 +49,7 @@ public abstract class CollectorFactory {
       final Iterable<String> paths = SPLITTER.split(collectorConfig.getPath());
       
       return StreamSupport.stream(Iterables.zip(names, paths).spliterator(), false).map(nameAndPath -> {
-         Collector collector = new JsonNetworkCollector(nameAndPath.left(), repository, collectorConfig.getFrequence(), nameAndPath.right(), client);
+         Collector collector = new JsonNetworkCollector(nameAndPath.left(), repository, collectorConfig.getFrequency(), nameAndPath.right(), client);
          
          collectorConfig.getSelectors().stream().forEach(selectorConfig -> collector.addSelector(selectorConfig));
          
@@ -64,10 +67,10 @@ public abstract class CollectorFactory {
     @Override
     public Stream<Collector> createCollectors(CollectorConfiguration collectorConfig) {
       final Iterable<String> names = SPLITTER.split(collectorConfig.getName());
-      final Iterable<String> paths = SPLITTER.split(collectorConfig.getPath());
+      final Iterable<String> paths = SPLITTER.split(Strings.isNullOrEmpty(collectorConfig.getPath()) ? "EMPTY" : collectorConfig.getPath());
       
       return StreamSupport.stream(Iterables.zip(names, paths).spliterator(), false).map(nameAndPath -> {
-         Collector collector = new AggregatorCollector(nameAndPath.left(), repository, collectorConfig.getFrequence(), nameAndPath.right());
+         Collector collector = new AggregatorCollector(nameAndPath.left(), repository, collectorConfig.getFrequency(), nameAndPath.right());
          collectorConfig.getSelectors().stream().forEach(selectorConfig -> collector.addSelector(selectorConfig));
          
          return collector;

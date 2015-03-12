@@ -31,14 +31,14 @@ public class WallyConfiguration extends Configuration {
   public static enum SIGNAL_COMPARATOR {
     EQ,HT,LT
   }
-  public static enum FREQUENCE {
+  public static enum FREQUENCY {
     SECOND(1, TimeUnit.SECONDS, 60), MINUTE(1, TimeUnit.MINUTES, 60);
 
     public final int interval;
     public final TimeUnit timeUnit;
     public int bufferSize;
 
-    FREQUENCE(int interval, TimeUnit timeUnit, int bufferSize) {
+    FREQUENCY(int interval, TimeUnit timeUnit, int bufferSize) {
       this.interval = interval;
       this.timeUnit = timeUnit;
       this.bufferSize = bufferSize;
@@ -152,13 +152,13 @@ public class WallyConfiguration extends Configuration {
   
   public abstract static class DataPanel extends Panel{
     @JsonIgnore
-    private Map<String, FREQUENCE> data = new HashMap<>(); 
+    private Map<String, FREQUENCY> data = new HashMap<>(); 
     
     @JsonProperty
     private List<Signal> signals;
     
-    public void setFrequence(String data, FREQUENCE frequence) {
-      this.data.put(data, frequence);
+    public void setFrequency(String data, FREQUENCY frequency) {
+      this.data.put(data, frequency);
     }
     
     @JsonProperty
@@ -167,7 +167,7 @@ public class WallyConfiguration extends Configuration {
     }
     
     @JsonProperty
-    public Map<String, FREQUENCE> getData() {
+    public Map<String, FREQUENCY> getData() {
       return data;
     }
     

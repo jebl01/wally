@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import se.jebl01.wally.collectors.selectors.Selector;
-import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCE;
+import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCY;
 import se.jebl01.wally.net.WallyHttpClient;
 
 import com.atlassian.fugue.Option;
@@ -15,7 +15,7 @@ public abstract class NetworkCollector<S, T extends Selector<S>> extends Collect
   private final String path;
   private final WallyHttpClient client;
 
-  public NetworkCollector(String name, DataRepository repository, FREQUENCE bufferType, String path, WallyHttpClient client) {
+  public NetworkCollector(String name, DataRepository repository, FREQUENCY bufferType, String path, WallyHttpClient client) {
     super(name, repository, bufferType);
     this.path = path;
     this.client = client;
@@ -26,7 +26,7 @@ public abstract class NetworkCollector<S, T extends Selector<S>> extends Collect
     client.get(this.path).foreach(inputStream ->
       parseDataInternal(inputStream).foreach(parsedData ->
         selectors.forEach(selector ->
-          repository.put(name + "." + selector.getName(), selector.getValue(parsedData), frequence.bufferSize))));
+          repository.put(name + "." + selector.getName(), selector.getValue(parsedData), frequency.bufferSize))));
   }
 
   protected abstract S parseData(String data);

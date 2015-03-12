@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import se.jebl01.wally.collectors.selectors.AggregatorSelector;
 import se.jebl01.wally.configuration.Parsers.AggregatorPath;
-import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCE;
+import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCY;
 
 public class AggregatorCollectorTest {
   
@@ -18,7 +18,7 @@ public class AggregatorCollectorTest {
     repository.put("test.key2", 20, 10);
     repository.put("test.key3", 30, 10);
     
-    AggregatorCollector collector = new AggregatorCollector("aggregated", repository, FREQUENCE.SECOND, "");
+    AggregatorCollector collector = new AggregatorCollector("aggregated", repository, FREQUENCY.SECOND, "");
     
     AggregatorPath headSumming = new AggregatorPath()
       .aggregator("SUM")
@@ -42,7 +42,7 @@ public class AggregatorCollectorTest {
     repository.put("test.key1", 10, 10);
     repository.put("test.key1", 10, 10);
     
-    AggregatorCollector collector = new AggregatorCollector("aggregated", repository, FREQUENCE.SECOND, "");
+    AggregatorCollector collector = new AggregatorCollector("aggregated", repository, FREQUENCY.SECOND, "");
     
     AggregatorPath headSumming = new AggregatorPath()
       .aggregator("AVG")

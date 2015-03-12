@@ -8,21 +8,21 @@ import se.jebl01.wally.collectors.selectors.AggregatorSelector;
 import se.jebl01.wally.configuration.Parsers;
 import se.jebl01.wally.configuration.Parsers.AggregatorPath;
 import se.jebl01.wally.configuration.SelectorConfiguration;
-import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCE;
+import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCY;
 
 public class AggregatorCollector extends Collector<Stream<Data>, AggregatorSelector>{
 
   private final String path;
 
-  public AggregatorCollector(String name, DataRepository repository, FREQUENCE frequence, String path) {
-    super(name, repository, frequence);
+  public AggregatorCollector(String name, DataRepository repository, FREQUENCY frequency, String path) {
+    super(name, repository, frequency);
     this.path = path;
   }
 
   @Override
   public void run() {
     selectors.forEach(selector ->
-      repository.put(name + "." + selector.getName(), selector.getValue(repository.get(selector.paths)), frequence.bufferSize));
+      repository.put(name + "." + selector.getName(), selector.getValue(repository.get(selector.paths)), frequency.bufferSize));
   }
 
   @Override

@@ -1,7 +1,6 @@
 package se.jebl01.wally.resources;
 
 import java.util.Collection;
-import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
 import javax.ws.rs.Consumes;

@@ -14,7 +14,7 @@ import se.jebl01.wally.collectors.factories.CollectorFactories;
 import se.jebl01.wally.collectors.factories.CollectorFactory;
 import se.jebl01.wally.configuration.CollectorConfiguration;
 import se.jebl01.wally.configuration.SelectorConfiguration;
-import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCE;
+import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCY;
 import se.jebl01.wally.net.WallyHttpClient;
 
 import com.google.common.collect.Lists;
@@ -40,17 +40,17 @@ public class CollectorsBuilderTest {
     System.out.println(c2);
     
     assertEquals("collector1", c1.name);
-    assertEquals(FREQUENCE.SECOND, c1.frequence);
+    assertEquals(FREQUENCY.SECOND, c1.frequency);
 
     assertEquals("collector2", c2.name);
-    assertEquals(FREQUENCE.SECOND, c2.frequence);
+    assertEquals(FREQUENCY.SECOND, c2.frequency);
   }
   
   
   private CollectorConfiguration createCollectorConfig() throws Exception {
     CollectorConfiguration collectorConfig = new CollectorConfiguration();
     setField(collectorConfig, "name", "collector1; collector2");
-    setField(collectorConfig, "frequence", FREQUENCE.SECOND);
+    setField(collectorConfig, "frequency", FREQUENCY.SECOND);
     setField(collectorConfig, "type", "http/json");
     setField(collectorConfig, "path", "http://foo.bar1; http://foo.bar2");
     setField(collectorConfig, "selectors", Lists.newArrayList(createSelectorConfig()));

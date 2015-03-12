@@ -68,7 +68,7 @@ public class WallyService extends Service<WallyConfiguration>{
       getDataPanels(config.getRootpanel())).forEach(dataPanel ->
         dataPanel.getData().keySet().stream().map(data ->
           WallyService.getCollector(data, collectors)).forEach(dataAndCollector ->
-            dataPanel.setFrequence(dataAndCollector.left(), dataAndCollector.right().getFrequence())));
+            dataPanel.setFrequency(dataAndCollector.left(), dataAndCollector.right().getFrequency())));
   }
   
   private Stream<DataPanel> getDataPanels(Panel panel) {
@@ -89,7 +89,7 @@ public class WallyService extends Service<WallyConfiguration>{
     
     CollectorsBuilder.build(configuration.getCollectors()).forEach(collector -> {
       collectors.put(collector.getName(), collector);
-      executor.scheduleAtFixedRate(collector, 0, collector.getFrequence().interval, collector.getFrequence().timeUnit);
+      executor.scheduleAtFixedRate(collector, 0, collector.getFrequency().interval, collector.getFrequency().timeUnit);
     });
     
     return collectors;

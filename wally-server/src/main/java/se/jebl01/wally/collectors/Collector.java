@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import se.jebl01.wally.collectors.selectors.Selector;
 import se.jebl01.wally.configuration.SelectorConfiguration;
-import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCE;
+import se.jebl01.wally.configuration.WallyConfiguration.FREQUENCY;
 
 public abstract class Collector<S, T extends Selector<S>> implements Runnable {
   public static final String PATH_MACRO = "\\$\\{path\\}";
@@ -13,12 +13,12 @@ public abstract class Collector<S, T extends Selector<S>> implements Runnable {
   protected final DataRepository repository;
   protected final Collection<T> selectors;
   protected final String name;
-  protected final FREQUENCE frequence;
+  protected final FREQUENCY frequency;
 
-  public Collector(String name, DataRepository repository, FREQUENCE frequence) {
+  public Collector(String name, DataRepository repository, FREQUENCY frequency) {
     this.name = name;
     this.repository = repository;
-    this.frequence = frequence;
+    this.frequency = frequency;
     this.selectors = new ArrayList<>();
   }
 
@@ -32,8 +32,8 @@ public abstract class Collector<S, T extends Selector<S>> implements Runnable {
     return name;
   }
 
-  public FREQUENCE getFrequence() {
-    return frequence;
+  public FREQUENCY getFrequency() {
+    return frequency;
   }
 
   @Override
@@ -44,7 +44,7 @@ public abstract class Collector<S, T extends Selector<S>> implements Runnable {
       .append(", name: ")
       .append(name)
       .append(", buffer_type: ")
-      .append(frequence)
+      .append(frequency)
       .append("\n");
       
     selectors.stream().forEach(selector -> sb.append("\t" + selector));
