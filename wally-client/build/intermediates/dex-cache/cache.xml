@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/JesperBlomquist/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.0.1/7ffdb02f95af1c1a208544e076cea5b8e66e731a/commons-io-2.0.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7ffdb02f95af1c1a208544e076cea5b8e66e731a">
+        <dex dex="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/pre-dexed/test/debug/commons-io-2.0.1-d38cec60006822612757b786c357ec220b35012b.jar" />
+    </item>
+    <item
+        jar="/Users/JesperBlomquist/.gradle/caches/modules-2/files-2.1/com.atlassian.fugue/fugue/2.2.0/bb927a47a187879d14455c8ba5c6df34e9b8e959/fugue-2.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="bb927a47a187879d14455c8ba5c6df34e9b8e959">
+        <dex dex="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/pre-dexed/debug/fugue-2.2.0-66f7ae5e4847acf9f20ac894aa395d6e5380d952.jar" />
+    </item>
+    <item
+        jar="/Users/JesperBlomquist/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/18.0/cce0823396aa693798f8882e64213b1772032b09/guava-18.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="cce0823396aa693798f8882e64213b1772032b09">
+        <dex dex="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/pre-dexed/debug/guava-18.0-956ccb7c3ba2a7c667d1c131587405e85e2bdc32.jar" />
+    </item>
+    <item
+        jar="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/pre-dexed/debug/classes-a07e67bf2d0dbe2f58223b18ad80febcbcd98bfc.jar" />
+    </item>
+    <item
+        jar="/Users/JesperBlomquist/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-da24190efff8deb717ff22d792dcf8615cf7d5e4.jar" />
+    </item>
+    <item
+        jar="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/pre-dexed/debug/classes-bb8a60e37bf65e5c2728110487a5fa1bc74c1270.jar" />
+    </item>
+    <item
+        jar="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="/Users/JesperBlomquist/AndroidStudioProjects/Wally/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-c28e4254022913e039af0cf1b6676caac044fdb0.jar" />
+    </item>
+
+</items>

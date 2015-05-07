@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Wally</string>
+    <string name="action_settings">Settings</string>
+    <string name="pref_title">Graphwall settings</string>
+    <string name="pref_server_key">pref_server</string>
+    <string name="pref_server_title">Server</string>
+    <string name="pref_server_summary">Remote graphwall server</string>
+    <string name="pref_server_dialogtitle">Enter server name</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="hello_world">Hello world!</string>
+
+</resources>
