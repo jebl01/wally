@@ -12,6 +12,7 @@ public interface Layout {
 	public static Layout HORIZONTAL = new HorizontalLayout();
 	public static Layout VERTICAL = new VerticalLayout();
     public static Layout OVERLAY = new OverlayLayout();
+    public static Layout HORIZONTAL_OVERLAY_FLOW = new HorizontalOverlayFlowLayout();
 
 	public static class NopLayout implements Layout {
 		@Override

@@ -60,8 +60,6 @@ public class SideBySideGraph extends DataPanel {
 
     @Override
     public void paint(Canvas canvas) {
-        super.paint(canvas);
-
         this.graphPaint.setColor(drawColor());
         float totalSplitterWidth = (dataProviders.size() - 1) * SPLITTER_WIDTH;
         float graphWidth = (size.getWidth() - totalSplitterWidth) / dataProviders.size();
@@ -96,5 +94,7 @@ public class SideBySideGraph extends DataPanel {
                 x += SPLITTER_WIDTH / 2;
             }
         }
+
+        super.paint(canvas);
     }
 }

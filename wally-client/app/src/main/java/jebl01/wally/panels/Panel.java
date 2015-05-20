@@ -43,6 +43,7 @@ public abstract class Panel {
         if(Rect.intersects(canvas.getClipBounds(), this.bounds)) {
             canvas.save();
             canvas.translate(this.bounds.left, this.bounds.top);
+            paintBackground(canvas);
             paint(canvas);
             canvas.restore();
             for(Panel child : this.children) {
@@ -51,10 +52,13 @@ public abstract class Panel {
         }
     }
 
-    public void paint(Canvas canvas) {
+    public void paintBackground(Canvas canvas) {
         Rect rect = new Rect(0,0,this.size.getWidth(), this.size.getHeight());
         this.backgroundPaint.setColor(backgroundColor());
         canvas.drawRect(rect, this.backgroundPaint);
+    }
+
+    public void paint(Canvas canvas) {
     }
 
     public void invalidate() {

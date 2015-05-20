@@ -31,6 +31,7 @@ public class DoubleBufferedPanel extends Panel {
     public void invalidate() {
         synchronized (drawLock) {
             Canvas canvas = new Canvas(this.bitmap);
+            paintBackground(canvas);
             paint(canvas);
         }
 

@@ -44,7 +44,7 @@ public class RootSurfaceView extends SurfaceView implements RedrawListener, Surf
 
         final Canvas canvas = getHolder().lockCanvas(bounds);
         try {
-            System.out.println("drawView with bounds: " + bounds + " canvas clip=" + canvas.getClipBounds());
+//            System.out.println("drawView with bounds: " + bounds + " canvas clip=" + canvas.getClipBounds());
             this.root.paintInternal(canvas);
         } finally {
             getHolder().unlockCanvasAndPost(canvas);

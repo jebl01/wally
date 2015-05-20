@@ -25,7 +25,7 @@ public class LabelDecorator extends Panel {
         this.labelPosition = labelPosition;
         this.decorated = decorated;
 
-        this.label = new TextPanel(label, hAlign, true){
+        this.label = new TextPanel(label, hAlign){
             private Paint bgPaint = createBgPaint();
 
             @Override

@@ -21,15 +21,16 @@ public abstract class DataPanel extends DoubleBufferedPanel implements Runnable 
     private final ScheduledThreadPoolExecutor executor;
     protected final List<DataProvider> dataProviders;
     protected final Signal signal;
+    private Option<? extends TextPanel> valueOverlay = Option.none();
 
     public DataPanel(RedrawListener redrawListener, List<DataProvider> dataProviders, Signal signal, ScheduledThreadPoolExecutor executor, boolean showValue) {
-        super(redrawListener, Layout.OVERLAY);
+        super(redrawListener, Layout.HORIZONTAL_OVERLAY_FLOW);
         this.dataProviders = dataProviders;
         this.signal = signal;
         this.executor = executor;
 
         if(showValue) {
-            TextPanel textPanel = new TextPanel(null, Paint.Align.CENTER, false) {
+            valueOverlay = Option.some(new TextPanel(null, Paint.Align.CENTER) {
                 @Override
                 public int textColor() {
                     return DataPanel.this.textColor();
@@ -50,9 +51,28 @@ public abstract class DataPanel extends DoubleBufferedPanel implements Runnable 
                 public int getAlpha() {
                     return 200;
                 }
-            };
 
-            addChild(textPanel);
+            });
+        }
+    }
+
+    @Override
+    public void layout(RectF bounds) {
+        super.layout(bounds);
+        for(TextPanel vo : valueOverlay) {
+            //bounds will not be used, but the size will...
+            vo.layout(bounds);
+        }
+    }
+
+    @Override
+    public void paint(Canvas canvas) {
+        super.paint(canvas);
+        for(TextPanel vo : valueOverlay) {
+            canvas.save();
+            canvas.translate(vo.margin(), vo.margin());
+            vo.paint(canvas);
+            canvas.restore();
         }
     }
 
