@@ -72,9 +72,25 @@ public class LabelDecorator extends Panel {
         return decorated.margin();
     }
 
+    public Panel addChild(Panel child) {
+        this.decorated.getChildren().add(child);
+        return this;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + ", label: " + this.label.getText();
+        StringBuilder sb = new StringBuilder()
+                .append(getClass().getSimpleName())
+                .append("{")
+                .append(decorated.getClass().getSimpleName())
+                .append(" [");
+
+        for(Panel child : decorated.getChildren()) {
+            sb.append(child.toString());
+            sb.append(",");
+        }
+
+        return sb.append("]").append("}").toString();
     }
 
     public interface LabelPosition {

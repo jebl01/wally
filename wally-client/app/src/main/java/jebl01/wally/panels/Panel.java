@@ -80,7 +80,15 @@ public abstract class Panel {
     }
 
     public String toString() {
-        return "panel: " + getClass().getSimpleName();
+        StringBuilder sb = new StringBuilder()
+                .append(getClass().getSimpleName())
+                .append(" [");
+
+        for(Panel child : getChildren()) {
+            sb.append(child.toString());
+        }
+
+        return sb.append("]").toString();
     }
 
     public int margin() {

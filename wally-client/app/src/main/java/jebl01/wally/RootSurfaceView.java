@@ -40,7 +40,7 @@ public class RootSurfaceView extends SurfaceView implements RedrawListener, Surf
 
     @Override
     public void redraw(Rect bounds) {
-        if(!created) return;
+        if(!created || root == null) return;
 
         final Canvas canvas = getHolder().lockCanvas(bounds);
         try {

@@ -1,8 +1,8 @@
 collectors:
-  - name: dogfight1; dogfight2; dogfight3
+  - name: dogfight4; dogfight5; dogfight6
     frequency: SECOND
     type: http/json
-    path: http://dogfight-ix01.se-ix.delta.prod:1942/@metrics/metrics; http://dogfight-ix02.se-ix.delta.prod:1942/@metrics/metrics; http://dogfight-ix02.se-ix.delta.prod:1942/@metrics/metrics
+    path: http://dogfight-ix04.se-ix.delta.prod:1942/@metrics/metrics; http://dogfight-ix05.se-ix.delta.prod:1942/@metrics/metrics; http://dogfight-ix06.se-ix.delta.prod:1942/@metrics/metrics
     selectors:
       - name: bids
         path: counters.['dogfight.global.bids.count'].count
@@ -19,18 +19,18 @@ collectors:
     path:
     selectors:
       - name: bids
-        path: SUM/HEAD(dogfight1.bids, dogfight2.bids, dogfight3.bids)
+        path: SUM/HEAD(dogfight4.bids, dogfight5.bids, dogfight6.bids)
         calculation: VALUE
       - name: passes
-        path: SUM/HEAD(dogfight1.passes, dogfight2.passes, dogfight3.passes)
+        path: SUM/HEAD(dogfight4.passes, dogfight5.passes, dogfight6.passes)
         calculation: VALUE
       - name: wins
-        path: SUM/HEAD(dogfight1.wins, dogfight2.wins, dogfight3.wins)
+        path: SUM/HEAD(dogfight4.wins, dogfight5.wins, dogfight6.wins)
         calculation: VALUE
-  - name: dogfight1-min; dogfight2-min; dogfight3-min
+  - name: dogfight4-min; dogfight5-min; dogfight6-min
     frequency: MINUTE
     type: aggregate
-    path: dogfight1; dogfight2; dogfight3
+    path: dogfight4; dogfight5; dogfight6
     selectors:
       - name: bids
         path: AVG/ALL(${path}.bids)
@@ -59,53 +59,53 @@ dashboards:
       label: Dogfight
       type: column
       panels:
-        - label: Dogfight 1
+        - label: Dogfight 4
           type: row
           panels:
             - label: Bids/s
               type: graph
-              data: dogfight1-min.bids; dogfight1.bids
+              data: dogfight4-min.bids; dogfight4.bids
               yscale: 1000
               signals: [dogfight.bids.critical, dogfight.bids.warning]
             - label: Passes/s
               type: graph
-              data: dogfight1.passes
+              data: dogfight4.passes
               yscale: 10000
             - label: Wins/s
               type: graph
-              data: dogfight1.wins
+              data: dogfight4.wins
               yscale: 100
         - label: Dogfight 2
           type: row
           panels:
             - label: Bids/s
               type: graph
-              data: dogfight2-min.bids; dogfight2.bids
+              data: dogfight5-min.bids; dogfight5.bids
               yscale: 1000
               signals: [dogfight.bids.critical, dogfight.bids.warning]
             - label: Passes/s
               type: graph
-              data: dogfight2.passes
+              data: dogfight5.passes
               yscale: 10000
             - label: Wins/s
               type: graph
-              data: dogfight2.wins
+              data: dogfight5.wins
               yscale: 100
-        - label: Dogfight 3
+        - label: Dogfight 6
           type: row
           panels:
             - label: Bids/s
               type: graph
-              data: dogfight3-min.bids; dogfight3.bids
+              data: dogfight6-min.bids; dogfight6.bids
               yscale: 1000
               signals: [dogfight.bids.critical, dogfight.bids.warning]
             - label: Passes/s
               type: graph
-              data: dogfight3.passes
+              data: dogfight6.passes
               yscale: 10000
             - label: Wins/s
               type: graph
-              data: dogfight3.wins
+              data: dogfight6.wins
               yscale: 100
 
 # HTTP-specific options.

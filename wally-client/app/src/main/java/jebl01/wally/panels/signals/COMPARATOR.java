@@ -1,4 +1,4 @@
-package jebl01.wally.signals;
+package jebl01.wally.panels.signals;
 
 import com.atlassian.fugue.Function2;
 

@@ -6,10 +6,11 @@ import android.graphics.CornerPathEffect;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Rect;
 import android.graphics.RectF;
 
 import com.atlassian.fugue.Option;
+
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -17,8 +18,10 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import jebl01.wally.DataProvider;
 import jebl01.wally.RedrawListener;
 import jebl01.wally.panels.DataPanel;
-import jebl01.wally.signals.LEVEL;
-import jebl01.wally.signals.Signal;
+import jebl01.wally.panels.Panel;
+import jebl01.wally.panels.parsers.DataPanelParser;
+import jebl01.wally.panels.signals.LEVEL;
+import jebl01.wally.panels.signals.Signal;
 
 public class SideBySideGraph extends DataPanel {
     private final static float SPLITTER_WIDTH = 5;
@@ -26,11 +29,11 @@ public class SideBySideGraph extends DataPanel {
 
     private final Paint graphPaint;
     private final Paint splitterPaint;
-    private final Option<Integer> yScale;
+    private final Option<Long> yScale;
     private final Matrix matrix = new Matrix();
     private final Path path = new Path();
 
-    public SideBySideGraph(RedrawListener redrawListener, List<DataProvider> dataProviders, Signal signal, ScheduledThreadPoolExecutor executor, Option<Integer> yScale) {
+    public SideBySideGraph(RedrawListener redrawListener, List<DataProvider> dataProviders, Signal signal, ScheduledThreadPoolExecutor executor, Option<Long> yScale) {
         super(redrawListener, dataProviders, signal, executor, true);
         this.yScale = yScale;
 
@@ -95,6 +98,14 @@ public class SideBySideGraph extends DataPanel {
             }
         }
 
+        //make sure to call super.paint after drawing to make sure that the value overlay gets a chance to draw!
         super.paint(canvas);
+    }
+
+    public static class Parser extends DataPanelParser {
+        @Override
+        protected Option<Panel> createDataPanel(JSONObject object, RedrawListener redrawListener, List<DataProvider> dataProviders, Signal signal, ScheduledThreadPoolExecutor executor, Option<Long> yScale) {
+            return Option.<Panel>some(new SideBySideGraph(redrawListener, dataProviders, signal, executor, yScale));
+        }
     }
 }

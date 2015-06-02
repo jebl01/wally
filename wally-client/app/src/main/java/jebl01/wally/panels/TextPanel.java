@@ -66,6 +66,8 @@ public class TextPanel extends Panel {
 	private void calculateTextSize() {
 		if(this.getText() == null || this.getText().length() == 0) return;
 
+        System.out.println("calculating text size for text: " + getText());
+
 		Rect textBounds = new Rect();
 		this.paint.getTextBounds(this.getText(), 0, this.getText().length(), textBounds);
 

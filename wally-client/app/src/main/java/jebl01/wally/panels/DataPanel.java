@@ -2,7 +2,6 @@ package jebl01.wally.panels;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Size;
 
@@ -14,7 +13,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import jebl01.wally.DataProvider;
 import jebl01.wally.RedrawListener;
 import jebl01.wally.panels.layout.Layout;
-import jebl01.wally.signals.Signal;
+import jebl01.wally.panels.signals.Signal;
 
 public abstract class DataPanel extends DoubleBufferedPanel implements Runnable {
     private static final int MARGIN = 5;
@@ -43,11 +42,6 @@ public abstract class DataPanel extends DoubleBufferedPanel implements Runnable 
                 }
 
                 @Override
-                public String getText() {
-                    return String.valueOf(DataPanel.this.dataProviders.get(0).getHead());
-                }
-
-                @Override
                 public int getAlpha() {
                     return 200;
                 }
@@ -69,6 +63,7 @@ public abstract class DataPanel extends DoubleBufferedPanel implements Runnable 
     public void paint(Canvas canvas) {
         super.paint(canvas);
         for(TextPanel vo : valueOverlay) {
+            vo.setText(String.valueOf(this.dataProviders.get(0).getHead()));
             canvas.save();
             canvas.translate(vo.margin(), vo.margin());
             vo.paint(canvas);

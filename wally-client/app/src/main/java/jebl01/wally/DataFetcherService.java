@@ -13,6 +13,9 @@ import java.util.concurrent.TimeUnit;
 
 import jebl01.wally.utils.JsonRequestHelper;
 
+import static jebl01.wally.utils.JsonUtils.asIterable;
+import static jebl01.wally.utils.JsonUtils.getValue;
+
 public class DataFetcherService {
 	private final Map<Long, DataFetcher> fetchers = new HashMap<>();
 	private final ScheduledThreadPoolExecutor executor;
@@ -24,14 +27,13 @@ public class DataFetcherService {
 	}
 
 	public void register(DataProvider dataProvider) {
-		long frequencyMillisec = dataProvider.frequency.timeUnit.toMillis(dataProvider.frequency.interval);
-		
-		if (!fetchers.containsKey(frequencyMillisec)) {
+
+		if (!fetchers.containsKey(dataProvider.frequency.toMillis())) {
 			DataFetcher dataFetcher = new DataFetcher(serverUrl);
-			fetchers.put(frequencyMillisec, dataFetcher);
+			fetchers.put(dataProvider.frequency.toMillis(), dataFetcher);
 		}
 
-		fetchers.get(frequencyMillisec).addProvider(dataProvider);
+		fetchers.get(dataProvider.frequency.toMillis()).addProvider(dataProvider);
 	}
 	
 	public void start() {
@@ -40,7 +42,7 @@ public class DataFetcherService {
 			DataFetcher dataFetcher = entry.getValue();
 			
 			dataFetcher.initBuffers();
-			this.executor.scheduleAtFixedRate(dataFetcher, frequencyMillisec, frequencyMillisec, TimeUnit.MILLISECONDS);
+			this.executor.scheduleAtFixedRate(dataFetcher, 1000, frequencyMillisec, TimeUnit.MILLISECONDS);
 		}
 	}
 	
@@ -65,22 +67,21 @@ public class DataFetcherService {
 			try {
 				URL bufferUrl = new URL(serverUrl + "/buffers");
 				
-				System.out.println("querying for data(POST): " + serverUrl + " payload: " +  payload.toString());
-				JSONArray result = JsonRequestHelper.getJson(bufferUrl, payload);
-				System.out.println("result: " + result);
-				
+				System.out.println("init - querying for data(POST): " + serverUrl + " payload: " +  payload.toString());
+                JSONObject result = JsonRequestHelper.getJson(bufferUrl, payload);
+				System.out.println("init - result: " + result);
+
+                for(String key : asIterable(result.keys())) {
+					for(JSONArray buffer : getValue(result, key, JSONArray.class)) {
+                        int[] values = new int[buffer.length()];
+                        for(int bufferIndex = 0; bufferIndex < buffer.length(); bufferIndex++) {
+                            values[bufferIndex] = buffer.getInt(bufferIndex);
+                        }
+                        dataProviders.get(key).onBufferInit(values);
+                    }
+                }
+
 				for(int i = 0; i < result.length(); i++) {
-					JSONObject object = result.getJSONObject(i);
-					
-					String name = object.getString("name");
-					JSONArray buffer = object.getJSONArray("data");
-					
-					int[] values = new int[buffer.length()];
-					for(int bufferIndex = 0; bufferIndex < buffer.length(); bufferIndex++) {
-						values[bufferIndex] = buffer.getInt(bufferIndex);
-					}
-					dataProviders.get(name).onBufferInit(values);						
-					dataProviders.get(name).setValue(values[values.length - 1]);						
 				}
 				
 			} catch (Exception e) {
@@ -102,14 +103,16 @@ public class DataFetcherService {
 			
 			try {
 //				System.out.println("querying for data(POST): " + serverUrl + " payload: " +  payload.toString());
-				JSONArray result = JsonRequestHelper.getJson(serverUrl, payload);
+				JSONObject result = JsonRequestHelper.getJson(serverUrl, payload);
 //				System.out.println("result: " + result);
-				for(int i = 0; i < result.length(); i++) {
-					JSONObject object = result.getJSONObject(i);
-					String dataKey = object.names().getString(0);
-					int value = (int)object.getDouble(dataKey);
-					dataProviders.get(dataKey).setValue(value);
-				}
+
+                for(String key : asIterable(result.keys())) {
+                    for (Integer value : getValue(result, key, Integer.class)) {
+
+//				        System.out.println("setting key: " + key + " to value: " + value);
+					    dataProviders.get(key).setValue(value);
+                    }
+                }
 				
 			} catch (Exception e) {
 				for(DataProvider dataProvider : dataProviders.values()) {

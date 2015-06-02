@@ -20,7 +20,7 @@ import jebl01.wally.panels.LabelDecorator;
 import jebl01.wally.panels.Row;
 import jebl01.wally.panels.contentPanels.ColorPanel;
 import jebl01.wally.panels.contentPanels.SideBySideGraph;
-import jebl01.wally.signals.Signal;
+import jebl01.wally.panels.signals.Signal;
 
 
 public class TestActivity extends Activity {
@@ -49,7 +49,7 @@ public class TestActivity extends Activity {
         DataProvider dataProvider = new DataProvider("test", DataProvider.FREQUENCY.SECOND);
         DataProvider dataProvider2 = new DataProvider("test2", DataProvider.FREQUENCY.SECOND);
 
-        Panel graphPanel = new SideBySideGraph(rootSurfaceView, Arrays.asList(dataProvider, dataProvider2), Signal.OK, executor, Option.some(100));
+        Panel graphPanel = new SideBySideGraph(rootSurfaceView, Arrays.asList(dataProvider, dataProvider2), Signal.OK, executor, Option.some(100L));
 
         Panel rootPanel = new Column(rootSurfaceView)
                 .addChild(new LabelDecorator(rootSurfaceView, "Panel g1", LabelDecorator.LabelPosition.ABOVE, row))

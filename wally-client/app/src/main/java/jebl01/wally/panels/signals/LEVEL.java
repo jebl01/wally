@@ -1,7 +1,6 @@
-package jebl01.wally.signals;
+package jebl01.wally.panels.signals;
 
 import android.graphics.Color;
-import android.graphics.Paint;
 
 public enum LEVEL {
     OK(Color.BLACK, Color.GRAY, Color.GREEN),

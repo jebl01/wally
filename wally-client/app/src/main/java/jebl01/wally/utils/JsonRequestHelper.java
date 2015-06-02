@@ -24,7 +24,7 @@ public class JsonRequestHelper {
 		
 	}
 
-	public static JSONArray getJson(URL url, JSONArray payload) throws Exception {
+	public static JSONObject getJson(URL url, JSONArray payload) throws Exception {
 		HttpURLConnection urlConnection = prepareConnection(url);
 		urlConnection.setRequestProperty("Content-Type", "application/json");
 		
@@ -38,7 +38,7 @@ public class JsonRequestHelper {
 			out.close();
 			
 			String response = StreamUtils.toString(urlConnection.getInputStream());
-			return new JSONArray(response);			
+			return new JSONObject(response);
 		} finally {
 			urlConnection.disconnect();
 		}
